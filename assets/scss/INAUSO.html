@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INDUSTRIA ONE | Automatización Industrial</title>
+<style>
+:root{
+  --bg:#091116; --panel:#101b21; --panel2:#15242c; --line:#263942;
+  --text:#edf4f5; --muted:#9caeb4; --cyan:#16d7df; --orange:#ff8b28; --white:#fff;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit} button{cursor:pointer}
+.top{background:#05090c;border-bottom:1px solid var(--line);color:#aebdc2;padding:9px 5%;display:flex;justify-content:space-between;font-size:12px}
+header{position:sticky;top:0;z-index:20;background:rgba(9,17,22,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{max-width:1400px;margin:auto;padding:17px 28px;display:flex;align-items:center;gap:25px}
+.logo{display:flex;align-items:center;gap:10px;min-width:250px;color:white;text-decoration:none}
+.logo-mark{width:38px;height:38px;border:3px solid var(--cyan);display:grid;place-items:center;font-weight:bold;box-shadow:inset 0 0 15px rgba(22,215,223,.3)}
+.logo strong{letter-spacing:2px;font-size:19px}.logo span{display:block;color:var(--cyan);font-size:10px;letter-spacing:2px;margin-top:3px}
+.links{display:flex;gap:23px;flex:1;justify-content:center}.links a{color:#c5d0d3;text-decoration:none;font-size:14px}.links a:hover{color:var(--cyan)}
+.search{display:flex;border:1px solid var(--line);background:#0d181e;padding:10px 12px;min-width:250px}
+.search input{border:0;outline:0;background:transparent;color:white;flex:1}.search input::placeholder{color:#70848b}
+.cartbtn{background:transparent;color:white;border:1px solid var(--line);padding:10px 13px;position:relative}
+.badge{position:absolute;top:-9px;right:-9px;background:var(--orange);color:#111;border-radius:50%;width:19px;height:19px;font-size:11px;display:grid;place-items:center;font-weight:bold}
+
+.hero{min-height:620px;display:flex;align-items:center;background:
+linear-gradient(90deg,rgba(5,11,15,.97) 0%,rgba(5,11,15,.86) 38%,rgba(5,11,15,.35)),
+url("https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1800&q=85") center/cover}
+.hero-inner{max-width:1400px;margin:auto;padding:80px 45px;width:100%}
+.kicker{color:var(--cyan);font-size:13px;letter-spacing:4px;font-weight:bold}
+.hero h1{font-size:clamp(48px,7vw,92px);line-height:.95;margin:18px 0;max-width:850px;letter-spacing:-2px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{max-width:650px;color:#b7c5c9;font-size:20px;line-height:1.6}
+.btn{border:0;padding:15px 25px;font-weight:bold;text-decoration:none;display:inline-block}
+.btn-cyan{background:var(--cyan);color:#061014}.btn-cyan:hover{filter:brightness(1.1)}
+.btn-outline{background:transparent;border:1px solid #60747b;color:white;margin-left:10px}
+.stats{display:flex;gap:45px;margin-top:60px}.stat strong{font-size:28px;color:white}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+
+.container{max-width:1400px;margin:auto;padding:70px 28px}
+.heading{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:30px}
+.heading small{color:var(--cyan);letter-spacing:3px;font-weight:bold}.heading h2{font-size:42px;margin:7px 0 0}.heading a{color:var(--cyan);text-decoration:none}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.category{background:var(--panel);border:1px solid var(--line);padding:24px 18px;min-height:150px;transition:.25s}
+.category:hover{border-color:var(--cyan);transform:translateY(-4px);background:var(--panel2)}
+.cat-icon{font-size:36px;color:var(--cyan);margin-bottom:18px}.category button{border:0;background:transparent;color:white;padding:0;font-size:15px;text-align:left}
+.category p{font-size:12px;color:var(--muted);margin:8px 0 0}
+
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.product{background:var(--panel);border:1px solid var(--line);position:relative;transition:.25s}
+.product:hover{border-color:#526c75;transform:translateY(-5px);box-shadow:0 18px 35px rgba(0,0,0,.2)}
+.product-img{height:240px;background:#e9eef0 center/contain no-repeat;position:relative}
+.product-img img{width:100%;height:100%;object-fit:contain;padding:15px}
+.product-tag{position:absolute;top:12px;left:12px;background:var(--orange);color:#16100a;padding:5px 9px;font-size:10px;font-weight:bold}
+.product-info{padding:18px}.brandname{font-size:11px;color:var(--cyan);letter-spacing:1px}.product h3{font-size:18px;margin:8px 0;font-weight:500}.sku{font-size:11px;color:var(--muted)}.price{font-size:24px;font-weight:bold;margin:15px 0}
+.product-actions{display:flex;gap:9px}.add{flex:1;background:var(--cyan);border:0;padding:12px;font-weight:bold}.details{background:transparent;border:1px solid var(--line);color:white;padding:12px}
+.solutions{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}
+.solution-main{min-height:390px;padding:45px;background:
+linear-gradient(90deg,rgba(8,16,20,.92),rgba(8,16,20,.35)),
+url("https://images.unsplash.com/photo-1563770660941-10a63607692f?auto=format&fit=crop&w=1200&q=85") center/cover;border:1px solid var(--line)}
+.solution-main h2{font-size:48px;max-width:550px;margin:20px 0}.solution-main p{color:#bdcbd0;max-width:540px;line-height:1.6}
+.solution-side{display:grid;gap:20px}.mini{background:var(--panel);border:1px solid var(--line);padding:30px}.mini h3{font-size:24px;margin:0 0 8px}.mini p{color:var(--muted);line-height:1.5}.mini strong{color:var(--cyan);font-size:30px}
+.trust{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+.trust div{padding:28px;border-right:1px solid var(--line)}.trust div:last-child{border:0}.trust b{display:block;color:var(--cyan);margin-bottom:7px}.trust span{font-size:13px;color:var(--muted)}
+.cta{background:linear-gradient(100deg,#0d2027,#142b31);border:1px solid #25454d;padding:55px;display:flex;justify-content:space-between;align-items:center;gap:30px}.cta h2{font-size:42px;margin:0}.cta p{color:#b2c2c7;max-width:650px}
+
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:.25s;z-index:30}.overlay.show{opacity:1;pointer-events:auto}
+.cart{position:fixed;right:-470px;top:0;width:min(460px,100%);height:100vh;background:#0d171c;z-index:40;border-left:1px solid var(--line);display:flex;flex-direction:column;transition:.3s}.cart.open{right:0}
+.cart-head{padding:22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.cart-head h2{margin:0}.close{border:0;background:transparent;color:white;font-size:28px}
+.cart-items{padding:20px;overflow:auto;flex:1}.empty{text-align:center;color:var(--muted);padding:70px 10px}
+.cart-item{display:grid;grid-template-columns:80px 1fr auto;gap:13px;padding:12px 0;border-bottom:1px solid var(--line)}.cart-item img{width:80px;height:80px;object-fit:contain;background:#e9eef0}.cart-item h4{margin:0 0 5px;font-weight:500}.cart-item small{color:var(--muted)}.qty{display:flex;gap:8px;align-items:center;margin-top:9px}.qty button{background:#17262c;color:white;border:1px solid var(--line);width:26px;height:26px}.remove{background:none;border:0;color:#ff846f;font-size:11px}
+.cart-foot{padding:20px;border-top:1px solid var(--line)}.total{display:flex;justify-content:space-between;font-size:21px;margin-bottom:15px}.checkout{width:100%;padding:15px;background:var(--orange);border:0;font-weight:bold;color:#17110a}
+footer{border-top:1px solid var(--line);padding:50px 28px;color:var(--muted)}.footer{max-width:1400px;margin:auto;display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+
+@media(max-width:1050px){.links{display:none}.products{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.solutions{grid-template-columns:1fr}.search{min-width:180px}}
+@media(max-width:650px){.top{font-size:10px}.top span:last-child{display:none}.nav{padding:14px}.logo{min-width:auto}.logo strong{font-size:14px}.search{display:none}.hero-inner{padding:60px 22px}.stats{gap:18px;flex-wrap:wrap}.products{grid-template-columns:1fr}.categories{grid-template-columns:repeat(2,1fr)}.container{padding:45px 15px}.heading h2{font-size:31px}.trust{grid-template-columns:repeat(2,1fr)}.trust div:nth-child(2){border-right:0}.cta{padding:30px;display:block}.cta h2{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="top"><span>TECNOLOGÍA PARA LA INDUSTRIA 4.0</span><span>Soporte técnico especializado · Envíos a todo México</span></div>
+
+<header>
+<nav class="nav">
+<a class="logo" href="#"><div class="logo-mark">I/O</div><div><strong>INDUSTRIA ONE</strong><span>AUTOMATIZACIÓN & CONTROL</span></div></a>
+<div class="links"><a href="#productos">Productos</a><a href="#categorías">Categorías</a><a href="#soluciones">Soluciones</a><a href="#nosotros">Nosotros</a></div>
+<label class="search">⌕ <input id="search" placeholder="Buscar PLC, sensores, variadores..."></label>
+<button class="cartbtn" id="cartBtn">🛒 <span class="badge" id="count">0</span></button>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-inner">
+<div class="kicker">AUTOMATIZACIÓN INDUSTRIAL</div>
+<h1>El control de tu industria empieza <em>aquí.</em></h1>
+<p>Equipos, componentes y soluciones para automatización, control, manufactura e Industria 4.0.</p>
+<a class="btn btn-cyan" href="#productos">EXPLORAR PRODUCTOS →</a>
+<a class="btn btn-outline" href="#soluciones">SOLUCIONES INDUSTRIALES</a>
+<div class="stats"><div class="stat"><strong>+1,200</strong><span>Productos especializados</span></div><div class="stat"><strong>24/7</strong><span>Soporte para proyectos</span></div><div class="stat"><strong>MX</strong><span>Envíos nacionales</span></div></div>
+</div>
+</section>
+
+<section class="container" id="categorías">
+<div class="heading"><div><small>CATEGORÍAS</small><h2>Todo para tu operación</h2></div><a href="#productos">VER CATÁLOGO COMPLETO →</a></div>
+<div class="categories">
+<div class="category"><div class="cat-icon">▣</div><button onclick="filter('PLCs')">PLCs y Controladores</button><p>Control industrial programable</p></div>
+<div class="category"><div class="cat-icon">◉</div><button onclick="filter('Sensores')">Sensores</button><p>Proximidad, fotoeléctricos y más</p></div>
+<div class="category"><div class="cat-icon">ϟ</div><button onclick="filter('Variadores')">Variadores</button><p>Control de motores y velocidad</p></div>
+<div class="category"><div class="cat-icon">▥</div><button onclick="filter('HMI')">HMI y Pantallas</button><p>Interfaces hombre-máquina</p></div>
+<div class="category"><div class="cat-icon">◫</div><button onclick="filter('Neumática')">Neumática</button><p>Válvulas y actuadores</p></div>
+<div class="category"><div class="cat-icon">⌁</div><button onclick="filter('Redes')">Redes Industriales</button><p>Comunicación y conectividad</p></div>
+</div>
+</section>
+
+<section class="container" id="productos">
+<div class="heading"><div><small>CATÁLOGO DESTACADO</small><h2>Equipos listos para tu proyecto</h2></div><a href="#" onclick="render(products);return false">VER TODOS →</a></div>
+<div class="products" id="grid"></div>
+</section>
+
+<section class="container" id="soluciones">
+<div class="solutions">
+<div class="solution-main">
+<small class="kicker">SOLUCIONES A MEDIDA</small>
+<h2>De un sensor a una línea de producción completa.</h2>
+<p>Te ayudamos a seleccionar componentes compatibles y construir soluciones para automatización industrial, monitoreo y control.</p>
+<button class="btn btn-cyan" onclick="alert('Formulario de cotización: aquí conectaríamos el backend para recibir proyectos y solicitudes.')">SOLICITAR COTIZACIÓN →</button>
+</div>
+<div class="solution-side">
+<div class="mini"><strong>01</strong><h3>Asesoría técnica</h3><p>Selecciona el equipo correcto para tu proceso antes de invertir.</p></div>
+<div class="mini"><strong>02</strong><h3>Industria 4.0</h3><p>Conectividad, adquisición de datos y monitoreo inteligente.</p></div>
+</div>
+</div>
+</section>
+
+<section class="container">
+<div class="trust">
+<div><b>PRODUCTOS INDUSTRIALES</b><span>Componentes para aplicaciones reales.</span></div>
+<div><b>COMPATIBILIDAD</b><span>Asesoría para integrar tus sistemas.</span></div>
+<div><b>ENVÍOS SEGUROS</b><span>Empaque y logística especializada.</span></div>
+<div><b>SOPORTE TÉCNICO</b><span>Te acompañamos durante el proyecto.</span></div>
+</div>
+</section>
+
+<section class="container">
+<div class="cta"><div><small class="kicker">PROYECTOS EMPRESARIALES</small><h2>¿Necesitas más de un componente?</h2><p>Solicita una cotización para proyectos de automatización, integración de tableros, sensores y control de procesos.</p></div><button class="btn btn-cyan" onclick="alert('Aquí se abriría un formulario de contacto empresarial.')">HABLAR CON UN ESPECIALISTA →</button></div>
+</section>
+
+<div class="overlay" id="overlay"></div>
+<aside class="cart" id="cart">
+<div class="cart-head"><h2>Carrito industrial</h2><button class="close" id="close">×</button></div>
+<div class="cart-items" id="items"></div>
+<div class="cart-foot"><div class="total"><span>Total estimado</span><strong id="total">$0</strong></div><button class="checkout" id="checkout">SOLICITAR PEDIDO / CHECKOUT →</button></div>
+</aside>
+
+<footer id="nosotros"><div class="footer"><div><div class="logo"><div class="logo-mark">I/O</div><div><strong>INDUSTRIA ONE</strong><span>AUTOMATIZACIÓN & CONTROL</span></div></div><p>Componentes para construir el futuro de la industria.</p></div><div>Soporte técnico<br>Envíos nacionales<br>Garantías y devoluciones</div><div>© 2026 INDUSTRIA ONE<br>Demo de tienda industrial</div></div></footer>
+
+<script>
+const products=[
+{id:1,name:"PLC Compacto AX-120",brand:"CONTROLTECH",sku:"SKU: PLC-AX120",price:8950,cat:"PLCs",tag:"MÁS VENDIDO",img:"https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=700&q=80"},
+{id:2,name:"Sensor Fotoeléctrico M18",brand:"SENSIX",sku:"SKU: SNS-M18-P",price:1280,cat:"Sensores",img:"https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=700&q=80"},
+{id:3,name:"Variador de Frecuencia VFD-2.2",brand:"MOTORDRIVE",sku:"SKU: VFD-2200",price:12490,cat:"Variadores",tag:"NUEVO",img:"https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=700&q=80"},
+{id:4,name:"Panel HMI Touch 7”",brand:"VISION CONTROL",sku:"SKU: HMI-7T",price:6790,cat:"HMI",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80"},
+{id:5,name:"Válvula Solenoide 24V",brand:"PNEUMAX",sku:"SKU: PNV-24",price:1890,cat:"Neumática",img:"https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=700&q=80"},
+{id:6,name:"Switch Ethernet Industrial",brand:"NETCORE INDUSTRIAL",sku:"SKU: NET-8P",price:5450,cat:"Redes",img:"https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80"},
+{id:7,name:"PLC Modular X500",brand:"CONTROLTECH",sku:"SKU: PLC-X500",price:15990,cat:"PLCs",img:"https://images.unsplash.com/photo-1563770660941-10a63607692f?auto=format&fit=crop&w=700&q=80"},
+{id:8,name:"Sensor Inductivo M12",brand:"SENSIX",sku:"SKU: IND-M12",price:940,cat:"Sensores",img:"https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=700&q=80"}
+];
+let cart=JSON.parse(localStorage.getItem("industriaOneCart")||"[]");
+const mx=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n);
+
+function render(list){
+ document.getElementById("grid").innerHTML=list.map(p=>`<article class="product">
+ <div class="product-img"><img src="${p.img}" alt="${p.name}">${p.tag?`<span class="product-tag">${p.tag}</span>`:""}</div>
+ <div class="product-info"><div class="brandname">${p.brand}</div><h3>${p.name}</h3><div class="sku">${p.sku}</div><div class="price">${mx(p.price)}</div>
+ <div class="product-actions"><button class="add" onclick="add(${p.id})">AGREGAR</button><button class="details" onclick="details(${p.id})">⌕</button></div></div></article>`).join("");
+}
+function filter(cat){render(products.filter(p=>p.cat===cat));document.querySelector("#productos").scrollIntoView({behavior:"smooth"})}
+document.getElementById("search").addEventListener("input",e=>{let q=e.target.value.toLowerCase();render(products.filter(p=>(p.name+p.brand+p.cat).toLowerCase().includes(q)))});
+function details(id){let p=products.find(x=>x.id===id);alert(`${p.name}\n\nMarca: ${p.brand}\nCategoría: ${p.cat}\n${p.sku}\nPrecio: ${mx(p.price)}\n\nAquí podría abrirse una página individual con especificaciones técnicas, datasheet y compatibilidad.`)}
+function add(id){let i=cart.find(x=>x.id===id);i?i.qty++:cart.push({id,qty:1});save();open()}
+function change(id,d){let i=cart.find(x=>x.id===id);if(!i)return;i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.id!==id);save()}
+function remove(id){cart=cart.filter(x=>x.id!==id);save()}
+function save(){localStorage.setItem("industriaOneCart",JSON.stringify(cart));renderCart()}
+function renderCart(){
+ const el=document.getElementById("items");
+ if(!cart.length)el.innerHTML='<div class="empty">No hay equipos en tu carrito.<br><br>Agrega componentes para comenzar tu proyecto.</div>';
+ else el.innerHTML=cart.map(i=>{let p=products.find(x=>x.id===i.id);return `<div class="cart-item"><img src="${p.img}"><div><h4>${p.name}</h4><small>${p.sku}</small><div>${mx(p.price)}</div><div class="qty"><button onclick="change(${p.id},-1)">−</button><span>${i.qty}</span><button onclick="change(${p.id},1)">+</button></div></div><button class="remove" onclick="remove(${p.id})">Eliminar</button></div>`}).join("");
+ let count=cart.reduce((s,x)=>s+x.qty,0),total=cart.reduce((s,x)=>s+products.find(p=>p.id===x.id).price*x.qty,0);
+ document.getElementById("count").textContent=count;document.getElementById("total").textContent=mx(total);
+}
+const cartEl=document.getElementById("cart"),over=document.getElementById("overlay");
+function open(){cartEl.classList.add("open");over.classList.add("show")}function close(){cartEl.classList.remove("open");over.classList.remove("show")}
+document.getElementById("cartBtn").onclick=open;document.getElementById("close").onclick=close;over.onclick=close;
+document.getElementById("checkout").onclick=()=>cart.length?alert("Demo: aquí conectaríamos el checkout real, usuarios, inventario, facturación y pasarela de pago."):null;
+render(products);renderCart();
+</script>
+</body>
+</html>

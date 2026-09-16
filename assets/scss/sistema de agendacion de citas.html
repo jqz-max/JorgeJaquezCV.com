@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agenda Médica | Sistema de Citas</title>
+<style>
+:root{--blue:#164e63;--blue2:#0d3444;--cyan:#55a9b8;--mint:#eaf5f4;--bg:#f4f7f7;--ink:#203039;--muted:#6d7b80;--line:#dbe5e6;--white:#fff;--green:#3d8b68;--red:#b85454}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
+button,input,select{font:inherit}.app{min-height:100vh}.top{background:var(--blue2);color:#fff;padding:15px 5%;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:12px;font-weight:850}.logo{width:40px;height:40px;background:#fff;color:var(--blue);border-radius:11px;display:grid;place-items:center;font-size:21px}.doctor{font-size:13px;color:#c9d9dd}.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 70px)}aside{background:#fff;border-right:1px solid var(--line);padding:25px 15px}.navbtn{width:100%;text-align:left;border:0;background:transparent;padding:13px 15px;border-radius:9px;margin-bottom:5px;color:var(--muted);font-weight:700;cursor:pointer}.navbtn.active,.navbtn:hover{background:var(--mint);color:var(--blue)}main{padding:30px 4%;max-width:1450px;width:100%}.view{display:none}.view.active{display:block}.titlebar{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:25px}.titlebar h1{font-size:31px;margin:0}.subtitle{color:var(--muted);font-size:14px;margin-top:5px}.btn{border:0;border-radius:8px;background:var(--blue);color:#fff;padding:11px 16px;font-weight:800;cursor:pointer}.btn:hover{background:var(--blue2)}.btn.secondary{background:#fff;color:var(--blue);border:1px solid var(--line)}.btn.danger{background:var(--red)}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:25px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:28px;margin:7px 0;color:var(--blue)}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:22px}.grid2{display:grid;grid-template-columns:1.35fr .65fr;gap:20px}.panel h2{font-size:20px;margin:0 0 18px}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.input,.select{border:1px solid var(--line);background:#fff;border-radius:8px;padding:11px 12px;min-height:43px}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.calendar-head button{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:8px;cursor:pointer}.month{font-weight:850;font-size:18px}.week{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.day{min-height:115px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px}.day.mutedday{background:#fafbfb;color:#aab3b6}.daynum{font-size:12px;font-weight:800;margin-bottom:6px}.slot{font-size:11px;padding:5px 6px;border-radius:6px;background:var(--mint);color:var(--blue);margin:4px 0;cursor:pointer}.slot.busy{background:#edf0f1;color:#777}.slot.pending{background:#fff1d9;color:#866022}.upcoming{display:grid;gap:10px}.appointment{padding:14px;border:1px solid var(--line);border-radius:9px;display:flex;justify-content:space-between;gap:12px}.appointment b{display:block}.appointment small{color:var(--muted)}.status{font-size:11px;padding:5px 8px;border-radius:20px;background:#e4f2eb;color:var(--green);height:max-content}.status.pending{background:#fff1d9;color:#8b6925}.status.cancelled{background:#f9e6e6;color:var(--red)}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:13px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}.patient-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.patient{background:#fff;border:1px solid var(--line);padding:20px;border-radius:12px}.avatar{width:43px;height:43px;border-radius:50%;background:var(--mint);color:var(--blue);display:grid;place-items:center;font-weight:900}.patient h3{margin:10px 0 5px}.patient p{color:var(--muted);font-size:13px;margin:4px 0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px}.field textarea{min-height:90px}.modal{display:none;position:fixed;inset:0;background:rgba(13,35,44,.55);align-items:center;justify-content:center;padding:20px;z-index:30}.modal.open{display:flex}.modalbox{background:#fff;border-radius:15px;width:min(620px,100%);padding:27px;max-height:90vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#f0f3f3;border-radius:8px;width:38px;height:38px;cursor:pointer}.empty{text-align:center;color:var(--muted);padding:35px}.toast{position:fixed;right:25px;bottom:25px;background:var(--blue2);color:#fff;padding:13px 17px;border-radius:9px;display:none;z-index:50}.toast.show{display:block}
+@media(max-width:950px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;border-right:0;border-bottom:1px solid var(--line);padding:8px}.navbtn{white-space:nowrap;width:auto;margin:0}.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.patient-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.top{padding:12px 4%}.doctor{display:none}main{padding:20px 4%}.cards,.patient-grid{grid-template-columns:1fr}.titlebar{display:block}.titlebar .btn{margin-top:14px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.week{overflow:auto;grid-template-columns:repeat(7,minmax(105px,1fr))}.calendar-wrap{overflow:auto}.day{min-height:100px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">+</div><div>Agenda Médica <span class="doctor">· Dr. Alejandro Martínez</span></div></div><div>Consultorio · Ciudad Juárez</div></header>
+<div class="layout">
+<aside>
+<button class="navbtn active" data-view="dashboard">Resumen</button>
+<button class="navbtn" data-view="agenda">Agenda</button>
+<button class="navbtn" data-view="citas">Citas</button>
+<button class="navbtn" data-view="pacientes">Pacientes</button>
+<button class="navbtn" data-view="nueva">Nueva cita</button>
+</aside>
+<main>
+
+<section id="dashboard" class="view active">
+<div class="titlebar"><div><h1>Resumen</h1><div class="subtitle">Control de citas y actividad del consultorio.</div></div><button class="btn" id="newFromDash">+ Nueva cita</button></div>
+<div class="cards"><div class="stat"><small>Citas hoy</small><strong id="todayCount">0</strong><small>agenda del día</small></div><div class="stat"><small>Próximas</small><strong id="upcomingCount">0</strong><small>citas confirmadas</small></div><div class="stat"><small>Pendientes</small><strong id="pendingCount">0</strong><small>por confirmar</small></div><div class="stat"><small>Pacientes</small><strong id="patientCount">0</strong><small>registrados</small></div></div>
+<div class="grid2"><div class="panel"><h2>Próximas citas</h2><div class="upcoming" id="dashUpcoming"></div></div><div class="panel"><h2>Acciones rápidas</h2><div style="display:grid;gap:10px"><button class="btn" id="quickNew">Registrar cita</button><button class="btn secondary" data-go="pacientes">Consultar pacientes</button><button class="btn secondary" data-go="agenda">Abrir calendario</button></div></div></div>
+</section>
+
+<section id="agenda" class="view">
+<div class="titlebar"><div><h1>Agenda</h1><div class="subtitle">Selecciona una cita para consultar sus detalles.</div></div><button class="btn" id="newFromAgenda">+ Nueva cita</button></div>
+<div class="panel calendar-wrap"><div class="calendar-head"><button id="prevMonth">‹</button><div class="month" id="monthLabel"></div><button id="nextMonth">›</button></div><div class="week" id="calendar"></div></div>
+</section>
+
+<section id="citas" class="view">
+<div class="titlebar"><div><h1>Citas</h1><div class="subtitle">Busca y administra las citas registradas.</div></div><button class="btn" id="newFromCitas">+ Nueva cita</button></div>
+<div class="panel"><div class="filters"><input class="input" id="searchAppointments" placeholder="Buscar paciente..."><select class="select" id="statusFilter"><option value="all">Todos los estados</option><option value="confirmed">Confirmadas</option><option value="pending">Pendientes</option><option value="cancelled">Canceladas</option></select></div><div style="overflow:auto"><table class="table"><thead><tr><th>Fecha</th><th>Paciente</th><th>Hora</th><th>Motivo</th><th>Estado</th><th></th></tr></thead><tbody id="appointmentsTable"></tbody></table></div></div>
+</section>
+
+<section id="pacientes" class="view">
+<div class="titlebar"><div><h1>Pacientes</h1><div class="subtitle">Directorio básico del consultorio.</div></div><button class="btn" id="newPatient">+ Nuevo paciente</button></div>
+<div class="patient-grid" id="patientGrid"></div>
+</section>
+
+<section id="nueva" class="view">
+<div class="titlebar"><div><h1>Nueva cita</h1><div class="subtitle">Registra una cita en la agenda.</div></div></div>
+<div class="panel"><form id="appointmentForm" class="formgrid">
+<div class="field"><label>Nombre del paciente *</label><input id="patientName" required placeholder="Nombre completo"></div>
+<div class="field"><label>Teléfono</label><input id="phone" type="tel" placeholder="(656) 000-0000"></div>
+<div class="field"><label>Correo</label><input id="email" type="email" placeholder="correo@ejemplo.com"></div>
+<div class="field"><label>Fecha *</label><input id="date" type="date" required></div>
+<div class="field"><label>Hora *</label><select id="time" required></select></div>
+<div class="field"><label>Motivo *</label><select id="reason" required><option value="">Selecciona</option><option>Consulta general</option><option>Medicina preventiva</option><option>Seguimiento</option><option>Estudios / resultados</option><option>Otro</option></select></div>
+<div class="field full"><label>Notas</label><textarea id="notes" placeholder="Notas administrativas (no agregues información clínica sensible innecesaria)"></textarea></div>
+<div class="field full"><div><button class="btn" type="submit">Guardar cita</button></div></div>
+</form></div>
+</section>
+
+</main></div></div>
+
+<div class="modal" id="modal"><div class="modalbox"><div class="modalhead"><h2 id="modalTitle">Detalle de cita</h2><button class="close" id="closeModal">×</button></div><div id="modalContent"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const root=document.querySelector('.app');
+const storageKey='agendaMedicaDemoV1';
+const today=new Date(); today.setHours(0,0,0,0);
+let current=new Date(today.getFullYear(),today.getMonth(),1);
+const times=['09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','16:00','16:30','17:00','17:30'];
+let data;
+try{data=JSON.parse(localStorage.getItem(storageKey))||null}catch(e){data=null}
+if(!data)data={appointments:[
+ {id:1,name:'María López',phone:'(656) 111-2233',email:'maria@email.com',date:iso(today),time:'09:30',reason:'Consulta general',status:'confirmed',notes:''},
+ {id:2,name:'Carlos Ramírez',phone:'(656) 222-3344',email:'carlos@email.com',date:iso(new Date(today.getTime()+86400000)),time:'10:30',reason:'Seguimiento',status:'pending',notes:''},
+ {id:3,name:'Laura Hernández',phone:'(656) 333-4455',email:'laura@email.com',date:iso(new Date(today.getTime()+2*86400000)),time:'16:00',reason:'Medicina preventiva',status:'confirmed',notes:''}
+]};
+function iso(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function save(){localStorage.setItem(storageKey,JSON.stringify(data))}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
+function fmtDate(s){const [y,m,d]=s.split('-').map(Number);return new Intl.DateTimeFormat('es-MX',{day:'2-digit',month:'short',year:'numeric'}).format(new Date(y,m-1,d))}
+function switchView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(id==='agenda')renderCalendar();if(id==='citas')renderAppointments();if(id==='pacientes')renderPatients();if(id==='dashboard')renderDashboard();if(id==='nueva')prepareForm()}
+function renderDashboard(){const now=iso(today), all=data.appointments.filter(a=>a.status!=='cancelled');document.getElementById('todayCount').textContent=all.filter(a=>a.date===now).length;document.getElementById('upcomingCount').textContent=all.filter(a=>a.date>=now).length;document.getElementById('pendingCount').textContent=all.filter(a=>a.status==='pending').length;document.getElementById('patientCount').textContent=new Set(data.appointments.map(a=>a.name.trim().toLowerCase())).size;const list=all.filter(a=>a.date>=now).sort(sortA).slice(0,5);document.getElementById('dashUpcoming').innerHTML=list.length?list.map(cardHtml).join(''):'<div class="empty">No hay próximas citas.</div>'}
+function sortA(a,b){return (a.date+a.time).localeCompare(b.date+b.time)}
+function cardHtml(a){return `<div class="appointment"><div><b>${esc(a.name)}</b><small>${fmtDate(a.date)} · ${a.time} · ${esc(a.reason)}</small></div><span class="status ${a.status}">${statusText(a.status)}</span></div>`}
+function statusText(s){return s==='confirmed'?'Confirmada':s==='pending'?'Pendiente':'Cancelada'}
+function renderCalendar(){const y=current.getFullYear(),m=current.getMonth();document.getElementById('monthLabel').textContent=new Intl.DateTimeFormat('es-MX',{month:'long',year:'numeric'}).format(current);const first=new Date(y,m,1),start=(first.getDay()+6)%7;const days=new Date(y,m+1,0).getDate(),prevDays=new Date(y,m,0).getDate();let out='';const names=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];names.forEach(n=>out+=`<div class="day" style="min-height:auto;font-weight:800;color:#6d7b80">${n}</div>`);for(let i=0;i<42;i++){let day=i-start+1, yy=y,mm=m;if(day<1){day=prevDays+day;mm=m-1;if(mm<0){mm=11;yy--}}else if(day>days){day=day-days;mm=m+1;if(mm>11){mm=0;yy++}}const ds=iso(new Date(yy,mm,day));const muted=mm!==m;const ap=data.appointments.filter(a=>a.date===ds).sort(sortA);out+=`<div class="day ${muted?'mutedday':''}"><div class="daynum">${day}</div>${ap.map(a=>`<div class="slot ${a.status==='pending'?'pending':a.status==='cancelled'?'busy':''}" data-id="${a.id}">${a.time} · ${esc(a.name.split(' ')[0])}</div>`).join('')}</div>`}document.getElementById('calendar').innerHTML=out;document.querySelectorAll('.slot').forEach(s=>s.addEventListener('click',()=>openAppointment(Number(s.dataset.id))))}
+function renderAppointments(){const q=document.getElementById('searchAppointments').value.toLowerCase(),st=document.getElementById('statusFilter').value;let a=data.appointments.filter(x=>(st==='all'||x.status===st)&&x.name.toLowerCase().includes(q)).sort(sortA);document.getElementById('appointmentsTable').innerHTML=a.length?a.map(x=>`<tr><td>${fmtDate(x.date)}</td><td><b>${esc(x.name)}</b></td><td>${x.time}</td><td>${esc(x.reason)}</td><td><span class="status ${x.status}">${statusText(x.status)}</span></td><td><button class="btn secondary viewAppt" data-id="${x.id}">Ver</button></td></tr>`).join(''):'<tr><td colspan="6" class="empty">No se encontraron citas.</td></tr>';document.querySelectorAll('.viewAppt').forEach(b=>b.addEventListener('click',()=>openAppointment(Number(b.dataset.id))))}
+function renderPatients(){const names={};data.appointments.forEach(a=>{const k=a.name.trim().toLowerCase();if(!names[k])names[k]=a});const list=Object.values(names);document.getElementById('patientGrid').innerHTML=list.length?list.map(a=>`<div class="patient"><div class="avatar">${initials(a.name)}</div><h3>${esc(a.name)}</h3><p>${esc(a.phone||'Sin teléfono')}</p><p>${esc(a.email||'Sin correo')}</p><p>Última cita: ${fmtDate(a.date)}</p></div>`).join(''):'<div class="empty">No hay pacientes registrados.</div>'}
+function initials(n){return n.split(/\s+/).slice(0,2).map(x=>x[0]).join('').toUpperCase()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function prepareForm(prefDate){document.getElementById('date').value=prefDate||iso(today);const sel=document.getElementById('time');sel.innerHTML='<option value="">Selecciona</option>'+times.map(t=>`<option>${t}</option>`).join('')}
+function openAppointment(id){const a=data.appointments.find(x=>x.id===id);if(!a)return;document.getElementById('modalTitle').textContent='Detalle de cita';document.getElementById('modalContent').innerHTML=`<div style="display:grid;gap:12px"><div><b>Paciente</b><br>${esc(a.name)}</div><div><b>Fecha y hora</b><br>${fmtDate(a.date)} · ${a.time}</div><div><b>Motivo</b><br>${esc(a.reason)}</div><div><b>Contacto</b><br>${esc(a.phone||'—')} · ${esc(a.email||'—')}</div><div><b>Estado</b><br><span class="status ${a.status}">${statusText(a.status)}</span></div><div><b>Notas</b><br>${esc(a.notes||'Sin notas')}</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px"><button class="btn" id="confirmBtn">${a.status==='confirmed'?'Confirmada':'Confirmar cita'}</button><button class="btn danger" id="cancelBtn">Cancelar cita</button><button class="btn secondary" id="deleteBtn">Eliminar</button></div></div>`;document.getElementById('modal').classList.add('open');document.getElementById('confirmBtn').onclick=()=>{a.status='confirmed';save();closeModal();refresh();showToast('Cita confirmada')};document.getElementById('cancelBtn').onclick=()=>{a.status='cancelled';save();closeModal();refresh();showToast('Cita cancelada')};document.getElementById('deleteBtn').onclick=()=>{if(confirm('¿Eliminar esta cita?')){data.appointments=data.appointments.filter(x=>x.id!==id);save();closeModal();refresh();showToast('Cita eliminada')}}}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function refresh(){renderDashboard();renderCalendar();renderAppointments();renderPatients()}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.go)));
+['newFromDash','quickNew','newFromAgenda','newFromCitas'].forEach(id=>document.getElementById(id).addEventListener('click',()=>switchView('nueva')));
+document.getElementById('prevMonth').onclick=()=>{current.setMonth(current.getMonth()-1);renderCalendar()};
+document.getElementById('nextMonth').onclick=()=>{current.setMonth(current.getMonth()+1);renderCalendar()};
+document.getElementById('closeModal').onclick=closeModal;
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.getElementById('searchAppointments').addEventListener('input',renderAppointments);
+document.getElementById('statusFilter').addEventListener('change',renderAppointments);
+document.getElementById('newPatient').onclick=()=>switchView('nueva');
+document.getElementById('appointmentForm').addEventListener('submit',e=>{e.preventDefault();const a={id:Date.now(),name:document.getElementById('patientName').value.trim(),phone:document.getElementById('phone').value.trim(),email:document.getElementById('email').value.trim(),date:document.getElementById('date').value,time:document.getElementById('time').value,reason:document.getElementById('reason').value,status:'confirmed',notes:document.getElementById('notes').value.trim()};if(!a.name||!a.date||!a.time||!a.reason){showToast('Completa los campos obligatorios');return}if(a.date<iso(today)){showToast('La fecha no puede ser anterior a hoy');return}if(data.appointments.some(x=>x.date===a.date&&x.time===a.time&&x.status!=='cancelled')){showToast('Ese horario ya está ocupado');return}data.appointments.push(a);save();e.target.reset();showToast('Cita guardada correctamente');switchView('agenda');current=new Date(a.date+'T00:00:00');current.setDate(1);renderCalendar()});
+prepareForm();refresh();
+})();
+</script>
+</body>
+</html>
